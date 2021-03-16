@@ -1,26 +1,29 @@
-import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
+import { Args, Ctx, FieldResolver, Mutation, Resolver, Root } from "type-graphql";
 import { Inject, Service } from "typedi";
 import { Context } from "../types/Context";
 import { AuthService } from "./../services/AuthService";
+import { LoginArgs } from "./../types/LoginArgs";
+import { RegisterArgs } from "./../types/RegisterArgs";
 import { User } from "./../types/User";
 
 @Service()
-@Resolver()
+@Resolver(() => User)
 export class AuthResolver {
 	constructor(@Inject() private readonly authService: AuthService) {}
 
-	@Mutation(() => User, { nullable: true })
-	async register(
-		@Ctx() ctx: Context,
-		@Arg("name") name: string,
-		@Arg("password") password: string,
-		@Arg("email") email: string
-	) {
-		return await this.authService.register({ name, password, email }, ctx);
+	@FieldResolver(() => String, { nullable: true })
+	async name(@Root() parent: any) {
+		console.log(parent);
+		return parent ? `${parent._doc.firstName} ${parent._doc.lastName}` : null;
 	}
 
 	@Mutation(() => User, { nullable: true })
-	async login(@Ctx() ctx: Context, @Arg("password") password: string, @Arg("email") email: string) {
+	async register(@Ctx() ctx: Context, @Args() { email, firstName, lastName, password }: RegisterArgs) {
+		return await this.authService.register({ firstName, lastName, password, email }, ctx);
+	}
+
+	@Mutation(() => User, { nullable: true })
+	async login(@Ctx() ctx: Context, @Args() { password, email }: LoginArgs) {
 		return await this.authService.login({ password, email }, ctx);
 	}
 }

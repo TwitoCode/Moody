@@ -6,7 +6,7 @@ import { User, UserModel } from "./../types/User";
 
 @Service()
 export class AuthService {
-	async register(user: Omit<User, "moodDocumentIDs" | "id">, ctx: Context) {
+	async register(user: Omit<User, "moodDocumentIDs" | "id" | "name">, ctx: Context) {
 		const id = v4();
 		const password = await hash(user.password, 12);
 

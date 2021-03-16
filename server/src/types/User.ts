@@ -1,4 +1,5 @@
 import { DocumentType, getModelForClass, ModelOptions, Prop } from "@typegoose/typegoose";
+import { IsEmail, MinLength } from "class-validator";
 import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
@@ -6,14 +7,19 @@ import { Field, ObjectType } from "type-graphql";
 export class User {
 	@Prop()
 	@Field()
-	name: string;
+	firstName: string;
 
 	@Prop()
 	@Field()
+	lastName: string;
+
+	@Prop()
+	@MinLength(6)
 	password: string;
 
 	@Prop()
 	@Field()
+	@IsEmail()
 	email: string;
 
 	@Prop()
