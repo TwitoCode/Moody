@@ -21,11 +21,13 @@ const main = async () => {
 	});
 
 	try {
-		await mongoose.connect(process.env.MONGO || "", {
+		await mongoose.connect(process.env.MONGO!, {
 			useCreateIndex: true,
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 		});
+
+		mongoose.connection.readyState === 1 && console.log("connected to db");
 	} catch (err) {
 		console.log(err);
 	}
@@ -55,6 +57,7 @@ const main = async () => {
 
 	app.use(passport.initialize());
 	app.use(passport.session());
+	
 	server.applyMiddleware({ app });
 	app.listen(PORT, () => console.log(`Listening on Port ${PORT}`));
 };
