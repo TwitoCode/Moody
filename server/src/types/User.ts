@@ -1,10 +1,9 @@
-import { DocumentType, getModelForClass, Prop } from "@typegoose/typegoose";
+import { DocumentType, getModelForClass, ModelOptions, Prop } from "@typegoose/typegoose";
 import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
+@ModelOptions({ options: { customName: "moody-users" } })
 export class User {
-	constructor() {}
-
 	@Prop()
 	@Field()
 	name: string;
@@ -17,7 +16,11 @@ export class User {
 	@Field()
 	email: string;
 
-	@Prop(() => [String])
+	@Prop()
+	@Field()
+	id: string;
+
+	@Prop({ type: () => [String] })
 	@Field(() => [String])
 	moodDocumentIDs: string[];
 }
