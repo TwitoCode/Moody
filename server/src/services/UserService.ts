@@ -1,7 +1,7 @@
 import { Inject, Service } from "typedi";
-import { Context } from "../types/Context";
-import { UserModel } from "../types/User";
-import { UpdateUserArgs } from "./../args/UpdateUserArgs";
+import { Context } from "../Types/Context";
+import { UserModel } from "../Types/User";
+import { UpdateUserArgs } from "../Args/UpdateUserArgs";
 import { AuthService } from "./AuthService";
 
 @Service()

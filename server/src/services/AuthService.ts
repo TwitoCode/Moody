@@ -1,8 +1,8 @@
 import { compare, hash } from "bcrypt";
 import { Service } from "typedi";
 import { v4 } from "uuid";
-import { Context } from "./../types/Context";
-import { User, UserModel } from "./../types/User";
+import { Context } from "../Types/Context";
+import { User, UserModel } from "../Types/User";
 
 @Service()
 export class AuthService {

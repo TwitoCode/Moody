@@ -1,10 +1,10 @@
 import { Args, Ctx, Mutation, Resolver } from "type-graphql";
 import { Inject, Service } from "typedi";
-import { LoginArgs } from "../args/LoginArgs";
-import { Context } from "../types/Context";
-import { RegisterArgs } from "./../args/RegisterArgs";
-import { AuthService } from "./../services/AuthService";
-import { User } from "./../types/User";
+import { LoginArgs } from "../Args/LoginArgs";
+import { Context } from "../Types/Context";
+import { RegisterArgs } from "../Args/RegisterArgs";
+import { AuthService } from "../Services/AuthService";
+import { User } from "../Types/User";
 
 @Service()
 @Resolver(() => User)
