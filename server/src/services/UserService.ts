@@ -1,7 +1,7 @@
 import { Inject, Service } from "typedi";
-import { Context } from "../Types/Context";
-import { UserModel } from "../Types/User";
-import { UpdateUserArgs } from "../Args/UpdateUserArgs";
+import { UpdateUserArgs } from "../args/UpdateUserArgs";
+import { Context } from "../types/Context";
+import { UserModel } from "../types/User";
 import { AuthService } from "./AuthService";
 
 @Service()
@@ -13,9 +13,9 @@ export class UserService {
 		let user = await this.getUserByID(ctx.req.session.userId);
 		if (!user) return null;
 
-    user.email = userToUpdate.email || user.email;
-    user.firstName = userToUpdate.firstName || user.firstName;
-    user.lastName = userToUpdate.lastName || user.lastName;
+		user.email = userToUpdate.email || user.email;
+		user.firstName = userToUpdate.firstName || user.firstName;
+		user.lastName = userToUpdate.lastName || user.lastName;
 
 		return user!.save();
 	}

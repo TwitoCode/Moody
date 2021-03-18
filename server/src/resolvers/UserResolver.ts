@@ -1,9 +1,9 @@
 import { Args, Ctx, FieldResolver, Mutation, Resolver, Root } from "type-graphql";
 import { Inject, Service } from "typedi";
-import { Context } from "../Types/Context";
-import { UpdateUserArgs } from "../Args/UpdateUserArgs";
-import { UserService } from "../Services/UserService";
-import { User } from "../Types/User";
+import { UpdateUserArgs } from "../args/UpdateUserArgs";
+import { UserService } from "../services/UserService";
+import { Context } from "../types/Context";
+import { User } from "../types/User";
 
 @Service()
 @Resolver(() => User)

@@ -1,8 +1,8 @@
 import { compare, hash } from "bcrypt";
 import { Service } from "typedi";
 import { v4 } from "uuid";
-import { Context } from "../Types/Context";
-import { User, UserModel } from "../Types/User";
+import { Context } from "../types/Context";
+import { User, UserModel } from "../types/User";
 
 @Service()
 export class AuthService {
@@ -11,9 +11,7 @@ export class AuthService {
 		const password = await hash(user.password, 12);
 
 		const model = new UserModel({ ...user, moodDocumentIDs: [], id, password });
-
-		//@ts-expect-error
-		ctx.req.session!.userId = user.id;
+		this.setCookie(ctx, model.id);
 
 		return model.save();
 	}
@@ -27,9 +25,11 @@ export class AuthService {
 		const isPasswordValid = await compare(password, user.password);
 		if (!isPasswordValid) return null;
 
-		//@ts-expect-error
-		ctx.req.session!.userId = user.id;
-
+		this.setCookie(ctx, user.id);
 		return user;
+	}
+
+	setCookie(ctx: any, id: any) {
+		ctx.req.session!.userId = id;
 	}
 }
