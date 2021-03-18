@@ -9,10 +9,9 @@ export class AuthService {
 	async register(user: Omit<User, "moodDocumentIDs" | "id" | "name">, ctx: Context) {
 		const id = v4();
 		const password = await hash(user.password, 12);
-
 		const model = new UserModel({ ...user, moodDocumentIDs: [], id, password });
-		this.setCookie(ctx, model.id);
 
+		this.setCookie(ctx, id);
 		return model.save();
 	}
 

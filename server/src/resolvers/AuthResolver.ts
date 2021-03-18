@@ -20,4 +20,16 @@ export class AuthResolver {
 	async login(@Ctx() ctx: Context, @Args() { password, email }: LoginArgs) {
 		return await this.authService.login({ password, email }, ctx);
 	}
+
+	@Mutation(() => Boolean)
+	async logout(@Ctx() ctx: Context) {
+		return new Promise((res, rej) => {
+			ctx.req.session.destroy((err) => {
+				if (err) return rej(false);
+
+				ctx.res.clearCookie("moody-session");
+				res(true);
+			});
+		});
+	}
 }
