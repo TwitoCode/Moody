@@ -37,4 +37,26 @@ export class UserService {
 			return null;
 		}
 	}
+
+	async delete(ctx: Context) {
+		//@ts-expect-error
+		if (!ctx.req.session.userId) return false;
+
+		return new Promise(async (res, rej) => {
+			//@ts-expect-error
+			const user = await UserModel.findOne({ id: ctx.req.session.userId });
+			if (!user) return false;
+
+			user.deleteOne((err) => {
+				if (err) return rej(false);
+
+				this.authService
+					.logout(ctx)
+					.then(() => {
+						res(true);
+					})
+					.catch(() => rej(false));
+			});
+		});
+	}
 }

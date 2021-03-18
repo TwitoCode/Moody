@@ -25,9 +25,4 @@ export class AuthResolver {
 	async logout(@Ctx() ctx: Context) {
 		return await this.authService.logout(ctx);
 	}
-
-	@Mutation(() => Boolean)
-	async deleteUser(@Ctx() ctx: Context) {
-		return await this.authService.delete(ctx);
-	}
 }

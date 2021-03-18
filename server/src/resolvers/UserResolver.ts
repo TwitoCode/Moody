@@ -20,4 +20,9 @@ export class UserResolver {
 	async updateUser(@Ctx() ctx: Context, @Args() user: UpdateUserArgs) {
 		return this.userService.update(ctx, user);
 	}
+
+	@Mutation(() => Boolean)
+	async deleteUser(@Ctx() ctx: Context) {
+		return await this.userService.delete(ctx);
+	}
 }
