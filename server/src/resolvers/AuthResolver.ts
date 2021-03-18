@@ -23,13 +23,11 @@ export class AuthResolver {
 
 	@Mutation(() => Boolean)
 	async logout(@Ctx() ctx: Context) {
-		return new Promise((res, rej) => {
-			ctx.req.session.destroy((err) => {
-				if (err) return rej(false);
+		return await this.authService.logout(ctx);
+	}
 
-				ctx.res.clearCookie("moody-session");
-				res(true);
-			});
-		});
+	@Mutation(() => Boolean)
+	async deleteUser(@Ctx() ctx: Context) {
+		return await this.authService.delete(ctx);
 	}
 }

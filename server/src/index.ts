@@ -42,7 +42,7 @@ const main = async () => {
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: false }));
 
-	const timeTillExpire = 1000 * 60 * 60 * 24;
+	const timeTillExpire = 1000 * 60 * 60 * 24 * 7;
 	const Store = connectMongo(session);
 
 	app.use(
